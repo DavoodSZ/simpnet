@@ -2,6 +2,7 @@ body {
   font-family: 'Noto Sans', sans-serif;
   color: #222;
   background: #fff;
+  overflow-x: hidden;
 }
 
 a { color: #2f8f5b; }
@@ -26,6 +27,7 @@ a:hover { text-decoration: underline; }
   font-size: 2.15rem;
   line-height: 1.24;
   color: #111;
+  max-width: 100%;
 }
 .publication-authors {
   font-family: 'Google Sans', sans-serif;
@@ -56,12 +58,20 @@ a:hover { text-decoration: underline; }
   border: 0;
   box-shadow: 0 3px 10px rgba(0,0,0,0.16);
 }
+.publication-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+.publication-links .link-block { display: inline-flex; }
 .publication-links .button:hover {
   transform: translateY(-1px);
   text-decoration: none;
 }
 .publication-video-block {
   max-width: 720px;
+  width: 100%;
   margin: 1.1rem auto 0;
   border-radius: 12px;
   overflow: hidden;
@@ -398,7 +408,41 @@ pre {
 }
 
 @media (max-width: 760px) {
-  .publication-title { font-size: 1.65rem; }
+  .container,
+  .columns,
+  .column {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .hero-body { padding-left: 1rem; padding-right: 1rem; }
+  .publication-title {
+    font-size: 1.45rem;
+    overflow-wrap: anywhere;
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .publication-links {
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .publication-links .button { max-width: calc(100vw - 2rem); }
+  .publication-video-block video,
+  .fig-wrap img,
+  .method-visual-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  .publication-video-block,
+  .fig-wrap,
+  .method-visual-card,
+  .chart-card {
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
   .highlight-grid,
   .method-story,
   .method-steps,
