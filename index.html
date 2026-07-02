@@ -1,119 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="SIMPNet: Spatial-informed Motion Planning Network.">
-  <meta name="keywords" content="">
+  <meta name="description" content="SIMPNet: Spatial-Informed Motion Planning Network. IEEE Robotics and Automation Letters.">
+  <meta name="keywords" content="SIMPNet, motion planning, neural informed sampling, graph neural networks, cross-attention, robotics, RA-L">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SIMPNet: Spatial-informed Motion Planning Network.</title>
+  <title>SIMPNet: Spatial-Informed Motion Planning Network</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css?v=20260702">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css?v=20260702">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260702">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <!--<link rel="icon" href="./static/images/favicon.svg">-->
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js?v=20260702"></script>
+  <script defer src="./static/js/index.js?v=20260702"></script>
+  <script defer src="./static/js/charts.js?v=20260702"></script>
 </head>
 <body>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow:1; justify-content:center;">
+      <a class="navbar-item" href="#"><span class="icon"><i class="fas fa-home"></i></span></a>
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#ablation">Ablations</a>
+      <a class="navbar-item" href="#realworld">Real-World</a>
+      <a class="navbar-item" href="#bibtex">BibTeX</a>
+    </div>
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero sec-white">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">SIMPNet: Spatial-informed Motion Planning Network</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://zh.engr.tamu.edu/people-2/">Davood Soleymanzadeh</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="https://engineering.tamu.edu/civil/profiles/liang-xiao.html">Xiao Liang</a><sup>2</sup>,</span>
-            <span class="author-block">
-              <a href="https://engineering.tamu.edu/mechanical/profiles/zheng-minghui">Minghui Zheng</a><sup>1</sup>.
-            </span>
+          <h1 class="title publication-title">
+            SIMPNet: Spatial-Informed<br>Motion Planning Network
+          </h1>
+
+          <div class="is-size-5 publication-authors" style="margin-top:0.8rem;">
+            <span class="author-block"><a href="https://zh.engr.tamu.edu/people-2/">Davood Soleymanzadeh</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://engineering.tamu.edu/civil/profiles/liang-xiao.html">Xiao Liang</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://engineering.tamu.edu/mechanical/profiles/zheng-minghui">Minghui Zheng</a><sup>1</sup></span>
           </div>
 
-          <head>
-            <style>
-              .author-affiliation a{
-                color: rgb(0, 190, 20) !important; /* Change color only for links in publication authors */
-              }
-            </style>
-          </head>
-
-          <div class="is-size-5 author-affiliation">
-            <span class="author-block"><sup>1</sup> <a href="https://www.tamu.edu" target="_blank">J. Mike Walker '66 Department of Mechanical Engineering, Texas A&M University</a>,</span>
-            <span class="author-block"><sup>2</sup> <a href="https://www.ncsu.edu/" target="_blank">Zachry Department of Civil and Environmental Engineering, Texas A&M University.</a></span>
+          <div class="author-affiliation">
+            <span class="author-block"><sup>1</sup> J. Mike Walker '66 Department of Mechanical Engineering, Texas A&amp;M University</span>
+            <span class="author-block"><sup>2</sup> Zachry Department of Civil and Environmental Engineering, Texas A&amp;M University</span>
           </div>
 
-          <div class="column has-text-centered">
+          <div style="margin-top:0.65rem;">
+            <span class="venue-badge">IEEE Robotics and Automation Letters</span>
+          </div>
+
+          <div class="column has-text-centered" style="padding-top:1.1rem; padding-bottom:0.2rem;">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2408.12831"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
+                <a href="https://arxiv.org/pdf/2408.12831" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2408.12831"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
+                <a href="https://arxiv.org/abs/2408.12831" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
                 </a>
               </span>
-              <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/DavoodSZ1993/SIMPNet_"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
+                <a href="https://github.com/DavoodSZ1993/SIMPNet_" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-quote-right"></i></span><span>BibTeX</span>
+                </a>
               </span>
             </div>
+          </div>
 
+          <div class="publication-video-block">
+            <video controls muted loop playsinline>
+              <source src="./static/videos/Revised-SIMPNet-II-Demo.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -121,193 +106,195 @@
   </div>
 </section>
 
-<!--Abstract and Introduction Video-->
-<section class="section">
+<section class="section sec-gray" style="padding-top:2rem; padding-bottom:2rem;">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
+    <div class="fig-wrap fig-full">
+      <img src="./static/images/02. SIMPNet-Structure.png" alt="SIMPNet sampling heuristic overview">
+      <p class="fig-cap">
+        <strong>Method Overview.</strong>
+        SIMPNet is a neural informed sampler for sampling-based motion planning. It represents the manipulator
+        kinematic chain as a graph, embeds workspace observations, and uses cross-attention to generate
+        spatially informed configuration-space samples for bidirectional planning.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section sec-white" id="abstract">
+  <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          Current robotic manipulators require fast and efficient motion-planning algorithms to operate in cluttered environments.
-          State-of-the-art sampling-based motion planners struggle to scale to high-dimensional configuration spaces and are inefficient
-          in complex environments. This inefficiency arises because these planners utilize either uniform or hand-crafted sampling
-          heuristics within the configuration space. To address these challenges, we present the Spatial-informed Motion Planning Network (SIMPNet).
-          SIMPNet consists of a stochastic graph neural network (GNN)-based sampling heuristic for informed sampling within the configuration space.
-          The sampling heuristic of SIMPNet encodes the workspace embedding into the configuration space through a cross-attention mechanism.
-          It encodes the manipulator's kinematic structure into a graph, which is used to generate informed samples within the framework of
-          sampling-based motion planning algorithms. We have evaluated the performance of SIMPNet using a UR5e robotic manipulator operating
-          within simple and complex workspaces, comparing it against baseline state-of-the-art motion planners. The evaluation results show the
-          effectiveness and advantages of the proposed planner compared to the baseline planners.
+        <h2 class="sec-heading">Abstract</h2>
+        <div class="content has-text-justified paper-copy">
+          <p>
+            Robotic manipulators require fast and efficient motion planners to operate in cluttered environments.
+            Sampling-based planners can struggle in high-dimensional configuration spaces because uniform or
+            hand-crafted sampling heuristics often require many collision checks. SIMPNet addresses this limitation
+            with a stochastic graph neural network sampling heuristic. The method encodes the manipulator's
+            kinematic structure as a graph and uses cross-attention to condition configuration-space sampling on
+            workspace embeddings. Experiments with a UR5e manipulator in simple and complex workspaces show that
+            SIMPNet improves planning efficiency and remains competitive with sampling-based and neural planning
+            baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fmp-highlight-shell reveal-block">
+      <div class="highlight-kicker">Highlights</div>
+      <h3>Graph-aware sampling for faster manipulator motion planning.</h3>
+      <p class="highlight-lead">
+        SIMPNet keeps the sampling-based planner structure, but replaces uninformed sampling with a learned
+        stochastic heuristic that is aware of robot kinematics and workspace geometry.
+      </p>
+
+      <div class="highlight-grid">
+        <div class="highlight-card primary">
+          <span class="highlight-icon"><i class="fas fa-project-diagram"></i></span>
+          <strong>Graph Sampling</strong>
+          <p>Encodes the UR5e kinematic chain as a graph for spatially informed sample generation.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon"><i class="fas fa-crosshairs"></i></span>
+          <strong>Cross-Attention</strong>
+          <p>Injects workspace embeddings into configuration-space sampling.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon"><i class="fas fa-bolt"></i></span>
+          <strong>0.67s</strong>
+          <p>planning time in the unseen simple environment benchmark.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon"><i class="fas fa-chart-line"></i></span>
+          <strong>97%</strong>
+          <p>success rate in the unseen simple environment benchmark.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-    <!--/ Abstract. -->
 
-<section class="section">
+<section class="section sec-gray" id="method">
   <div class="container is-max-desktop">
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video Introduction</h2>
-        <div class="publication-video">
-          <p>A brief video introduction of SIMPNet.</p>
-          <video class="center" autoplay controls muted loop playsinline width="100%">
-            <source src="./static/videos/Revised-SIMPNet-II-Demo.mp4"
-                    type="video/mp4">
-          </video>
+    <h2 class="sec-heading">Method</h2>
+
+    <div class="method-story reveal-block">
+      <div class="method-copy">
+        <div class="highlight-kicker">Method</div>
+        <h3>Spatial information guides sampling inside a classical planner.</h3>
+        <p>
+          SIMPNet learns a stochastic sampling heuristic that proposes the next configuration using the current
+          state, goal state, robot graph features, and workspace embedding.
+        </p>
+        <div class="formula-pill">q<sub>new</sub> = Heuristic(q<sub>a</sub>, q<sub>b</sub>, x<sub>a</sub>, x<sub>b</sub>, o<sub>env</sub>)</div>
+      </div>
+      <div class="method-steps">
+        <div class="method-step">
+          <span>1</span>
+          <h4>Build Robot Graph</h4>
+          <p>Represent joints and links as graph nodes and edges that follow the manipulator kinematic chain.</p>
+        </div>
+        <div class="method-step">
+          <span>2</span>
+          <h4>Fuse Workspace Context</h4>
+          <p>Use cross-attention to condition graph features on the workspace embedding.</p>
+        </div>
+        <div class="method-step">
+          <span>3</span>
+          <h4>Plan with Informed Samples</h4>
+          <p>Generate stochastic samples inside a bidirectional sampling-based planner.</p>
         </div>
       </div>
     </div>
-    <!--/ Paper video. -->
+
+    <div class="method-visual-grid">
+      <div class="method-visual-card reveal-block compact-visual">
+        <img src="./static/images/Graph Construction.png" alt="UR5e graph construction">
+        <p>
+          <strong>Graph Construction.</strong>
+          The manipulator's kinematic structure is encoded as a graph, allowing message passing over robot joints.
+        </p>
+      </div>
+      <div class="method-visual-card reveal-block compact-visual">
+        <img src="./static/images/03. Environments.png" alt="Simple and complex SIMPNet environments">
+        <p>
+          <strong>Evaluation Environments.</strong>
+          SIMPNet is trained and evaluated in simple and complex workspaces.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section sec-white" id="results">
   <div class="container is-max-desktop">
-    <!--Method:SIMPNet. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Method</h2>
-
-        <!-- Network Structure.-->
-        <h3 class="title is-4">SIMPNet's Sampling Heuristic Strucutre</h3>
-        <div class="content has-text-justified">
-          <p>
-            We use graph neural networks (GNNs) to incorporate the structure of the robotic manipulator's kinematic chain
-            into our proposed sampling heuristic. This approach makes our planner aware of the manipulator's articulated structure.
-            We also use an attention mechanism to condition the planning problem on workspace embeddings, given
-            different dimensions of configuration space and workspace in robotic manipulators.
-          </p>
-        </div>
-        <div class="cotent has-text-centered">
-            <img src="./static/images/02. SIMPNet-Structure.png"
-                 class="interpolation-image"
-                 style="width: 70%;" 
-                 alt="Interpolate start reference image."/>
-            <p align="center">Schematic of spatial-informed sampling heuristic within SIMPNet.</p>
-        </div>
-        <br/>
-
-        <!--Graph Representation. -->
-        <h3 class="title is-4">Robotic Manipulator's Graph Representation</h3>
-        <div class="content has-text-justified">
-          <p>
-            We build a graph that implicitly mimics the kinematic chain of the robotic manipulator.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <img src="./static/images/Graph Construction.png"
-          class="interpolation-image"
-          style="width: 50%;" 
-          alt="Interpolate start reference image."/>
-        </div>
-      </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Results</h2>
-      </div>
+    <h2 class="sec-heading">Results</h2>
+    <div class="content paper-copy">
+      <p>
+        We compare SIMPNet with classical sampling-based planners and neural informed samplers across seen and
+        unseen simple and complex environments. The interactive chart reports planning time, planning cost, and
+        success rate from the published RA-L paper. Figure 6 from the paper is not reproduced here as a separate
+        image; its comparison is represented through the recoverable table values below.
+      </p>
     </div>
 
-    <div class="columns is-centered">
+    <div id="main-chart" class="chart-card reveal-block"></div>
 
-      <!--Workspace. -->
-      <div class="column">
-        <div class="content">
-          <h3 class="title is-4">Workspaces</h3>
-          <p>
-            Type of workspaces used for training and evaluation of SIMPNet (i.e., simple and complex).
-          </p>
-          <img src="./static/images/03. Environments.png"
-          class="interpolation-image"
-          alt="Interpolate start reference image."/>
-        </div>
-      </div>
-
-      <!--Planning results: success-rate graph. -->
-      <div class="column">
-        <h3 class="title is-4">Planning Results vs. Benchmarks</h3>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              Time vs. success rate and vs. planning cost of SIMPNet compared to benchmark planners.
-            </p>
-            <img src="./static/images/time_cost-success1.png"
-            class="interpolation-image"
-            alt="Interpolate start reference image."/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Real-world Deployment</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">SIMPNet versus Benchmark Planners</h3>
-        <div class="content has-text-justified">
-          <p>
-            Experimental evaluation and comparison of planned paths by SIMPNet and some baseline planners in a complex environment:
-            Bi-RRT (Bi-directional RRT), IRRT* (Informed-RRT*), and MPNet (Motion Planning Networks). RRT 
-            completes the path in 32 seconds with a planning cost of 9.32. Bi-RRT plans in 9.44 seconds with a planning cost of 9.02.
-            IRRT* takes 500 seconds, achieving a cost of 4.01 MPNet completes the path in 218 seconds with a planning cost of 11.3.
-            SIMPNet plans the path in 5.81 seconds with a planning cost of 8.08.
-          </p>
-          <div class="columns is-centered">
-            <div class="column is-full-width">
-              <img src="./static/images/Planning .png"
-                   class="interpolation-image"
-                   alt="Interpolate start reference image."/>
-              <p align="center">Comparison of real-time deployment of SIMPNet and benchmark planners.</p>
-            </div>
-          </div>
-        </div>
-        <br/>
-      </div>
+    <div class="fig-wrap fig-full" style="margin-top:1.6rem;">
+      <img src="./static/images/Planning .png" alt="Real-world SIMPNet planning comparison">
+      <p class="fig-cap">
+        <strong>Planning Example.</strong>
+        Qualitative comparison of SIMPNet with benchmark planners in a complex workspace.
+      </p>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section sec-gray" id="ablation">
   <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-          <h3 class="title is-4">Planning Videos</h3>
-              <div class="columns">
-                  <div class="column">
-                      <video class="center" playsinline autoplay loop controls muted src="./static/videos/Bi-RRT.mp4" width="100%" style="border-radius:10px;"></video>
-                      <p style="text-align: center; font-size: 18px">Bi-RRT (x8)</p>
-                  </div>
-                  <div class="column">
-                      <video class="center" playsinline autoplay loop controls muted src="./static/videos/IRRTStar.mp4" width="100%" style="border-radius:10px;"></video>
-                      <p style="text-align: center; font-size: 18px">IRRT* (x4)</p>
-                  </div>
-              </div>
-              <div class="columns">
-                <div class="column">
-                  <video class="center" playsinline autoplay loop controls muted src="./static/videos/MPNet.mp4" width="100%" style="border-radius:10px;"></video>
-                  <p style="text-align: center; font-size: 18px">MPNet (x4)</p>
-              </div>
-              <div class="column">
-                <video class="center" playsinline autoplay loop controls muted src="./static/videos/SIMPNet.mp4" width="100%" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">SIMPNet (x4)</p>
-            </div>
-            </div>
-          </div>
-      </div>
+    <h2 class="sec-heading">Ablations</h2>
+    <div class="content paper-copy">
+      <p>
+        We summarize two ablations from the paper: removing forward-kinematics information from the graph features
+        and evaluating SIMPNet under different obstacle counts.
+      </p>
+    </div>
+
+    <div class="chart-grid">
+      <div id="rfk-chart" class="chart-card reveal-block"></div>
+      <div id="obstacle-chart" class="chart-card reveal-block"></div>
+    </div>
   </div>
 </section>
 
-<section class="section" id="BibTeX">
+<section class="section sec-white" id="realworld">
+  <div class="container is-max-desktop">
+    <h2 class="sec-heading">Planning Videos</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <video playsinline autoplay loop controls muted src="./static/videos/Bi-RRT.mp4"></video>
+        <p>Bi-RRT (x8)</p>
+      </div>
+      <div class="video-card">
+        <video playsinline autoplay loop controls muted src="./static/videos/IRRTStar.mp4"></video>
+        <p>IRRT* (x4)</p>
+      </div>
+      <div class="video-card">
+        <video playsinline autoplay loop controls muted src="./static/videos/MPNet.mp4"></video>
+        <p>MPNet (x4)</p>
+      </div>
+      <div class="video-card">
+        <video playsinline autoplay loop controls muted src="./static/videos/SIMPNet.mp4"></video>
+        <p>SIMPNet (x4)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section sec-gray" id="bibtex">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{soleymanzadeh2025simpnet,,
+    <h2 class="sec-heading">BibTeX</h2>
+    <pre><code>@article{soleymanzadeh2025simpnet,
   title     = {SIMPNet: Spatial-Informed Motion Planning Network},
   author    = {Soleymanzadeh, Davood and Liang, Xiao and Zheng, Minghui},
   journal   = {IEEE Robotics and Automation Letters},
@@ -319,16 +306,10 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p> Website borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
-              href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
-              International</a>
-          </p>
-
-        </div>
-      </div>
+    <div class="content has-text-centered">
+      <p>
+        Website template adapted from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>.
+      </p>
     </div>
   </div>
 </footer>
